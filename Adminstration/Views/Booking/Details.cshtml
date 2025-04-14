@@ -1,0 +1,35 @@
+@model Infrastructure.DTO.BookingDTO
+
+@{
+    ViewData["Title"] = "Booking Details";
+}
+
+<h1>Booking Details</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Booking Information</h5>
+        <p><strong>User Name:</strong> @Model.UserName</p>
+        <p><strong>User Email:</strong> @Model.UserEmail</p>
+        <p><strong>Car brand:</strong> <a asp-controller="Car" asp-action="Details" asp-route-id="@Model.CarId">@Model.CarName</a></p> 
+        <p><strong>Race Name:</strong> <a asp-controller="Race" asp-action="Details" asp-route-id="@Model.RaceId">@Model.RaceName</a></p> 
+        <p><strong>Confirmation Status:</strong> @(Model.IsConfirmed ? "Confirmed" : "Pending")</p>
+
+        <div class="mt-3">
+            @if (!Model.IsConfirmed)
+            {
+                <form asp-action="ConfirmBooking" asp-route-id="@Model.Id" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-success">Confirm</button>
+                </form>
+            }
+            else
+            {
+                <form asp-action="CancelBooking" asp-route-id="@Model.Id" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Cancel</button>
+                </form>
+            }
+        </div>
+    </div>
+</div>
+
+<a href="@Url.Action("Index")" class="btn btn-primary mt-3">Back to Bookings</a>

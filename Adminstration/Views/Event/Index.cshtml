@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Infrastructure.DTO.EventDTO>
+@{
+    ViewData["Title"] = "Events";
+}
+
+<h2>Events</h2>
+
+<a class="btn btn-primary mb-3" asp-action="Create">Create New Event</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Location</th>
+        <th>Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var eventDto in Model)
+    {
+        <tr>
+            <td>@eventDto.Name</td>
+            <td>@(eventDto.Description.Length > 10 ? eventDto.Description.Substring(0, 10) + "..." : eventDto.Description)</td>
+            <td>@(eventDto.Location.Length > 10 ? eventDto.Location.Substring(0, 10) + "..." : eventDto.Location)</td>
+            <td>@eventDto.Date.ToShortDateString()</td>
+            <td>
+                <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@eventDto.Id">Edit</a>
+                <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@eventDto.Id">Details</a>
+                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@eventDto.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

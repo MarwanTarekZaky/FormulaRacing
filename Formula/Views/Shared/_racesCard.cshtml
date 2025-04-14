@@ -1,0 +1,43 @@
+@using Domain.Models
+@using Infrastructure.DTO
+@{
+    var races = ViewBag.races as IEnumerable<RaceDTO> ?? Enumerable.Empty<RaceDTO>();
+}
+<!-- HTML Grid -->
+<div class="races-grid">
+    @if (races.Any())
+    {
+        @foreach (var race in races)
+        {
+            <div class="race-card">
+                <!-- Image with Date Badge -->
+                <div class="race-image" style="background-image: url('@("https://localhost:7027/admin-content" + race.ImageUrl ?? "/images/default-race.jpg")')">
+                    <span class="race-date">@race.Date.ToString("MMM dd, yyyy")</span>
+                </div>
+
+                <!-- Content -->
+                <div class="race-content">
+                    <h3 class="race-title">@race.Name</h3>
+
+                    <div class="race-meta">
+                        <span class="race-location">
+                            <i class="fas fa-map-marker-alt"></i> @race.Location
+                        </span>
+                        <span class="race-occupancy">
+                            <i class="fas fa-users"></i> @race.Occupancy
+                        </span>
+                    </div>
+
+                    <div class="race-length">
+                        <i class="fas fa-route"></i> @race.Length.ToString("0.0") km
+                    </div>
+                </div>
+
+
+            </div>
+        }
+    }
+</div>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

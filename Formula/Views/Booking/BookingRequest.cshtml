@@ -1,0 +1,87 @@
+@model Infrastructure.ViewModel.BookingFormViewModel;
+@{
+    Layout = null;  // If you are using a layout file
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Booking Form</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="~/colorlib-booking-4/css/bootstrap.min.css" />
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="~/colorlib-booking-4/css/style.css" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div id="booking" class="section">
+    <div class="section-center">
+        <div class="container">
+            <div class="row">
+                <div class="booking-form">
+                    <div class="form-header">
+                        <h1>Book a car</h1>
+                    </div>
+    <form method="post" enctype="multipart/form-data" asp-action="BookingRequest">
+        <div asp-validation-summary="All"></div>
+        <!-- User Information -->
+        <div class="form-group">
+            <label for="username">Full Name</label>
+            <input type="text" id="username" asp-for="Booking.UserName" class="form-control" required/>
+            <span asp-validation-for="Booking.UserName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" asp-for="Booking.UserEmail" class="form-control" required/>
+            <span asp-validation-for="Booking.UserEmail" class="text-danger"></span>
+        </div>
+
+        <!-- Car Selection using SelectList -->
+        <div class="form-group">
+            <label for="car">Car Selection</label>
+            <select id="car" asp-for="Booking.CarId" class="form-control" asp-items="@Model.Cars">
+                <option value="">Select a Car</option> <!-- Default Option -->
+            </select>
+            <span asp-validation-for="Booking.CarId" class="text-danger"></span>
+        </div>
+
+        <!-- Race Selection using SelectList -->
+        <div class="form-group">
+            <label for="race">Race Selection</label>
+            <select id="race" asp-for="Booking.RaceId" class="form-control" asp-items="@Model.Races">
+                <option value="">Select a Race</option> <!-- Default Option -->
+            </select>
+            <span asp-validation-for="Booking.RaceId" class="text-danger"></span>
+        </div>
+      
+        <!-- Submit Button -->
+       <button type="submit"  asp-controller="Booking" asp-action="BookingRequest" class="btn btn-primary">Submit Request</button>
+       <!-- Cancel Button -->
+        <a href="javascript:history.back()" class="btn btn-danger">Cancel</a>
+        
+
+    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

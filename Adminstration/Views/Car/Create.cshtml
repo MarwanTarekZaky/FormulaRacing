@@ -1,0 +1,46 @@
+@model CarDTO
+
+@{
+    ViewData["Title"] = "Create Car";
+}
+
+<h1>Create Car</h1>
+
+<form asp-action="Create" enctype="multipart/form-data" >
+    <div class="form-group">
+        <label asp-for="BrandName"></label>
+        <input asp-for="BrandName" class="form-control" />
+        <span asp-validation-for="BrandName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Model"></label>
+        <input asp-for="Model" class="form-control" />
+        <span asp-validation-for="Model" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Color"></label>
+        <input asp-for="Color" class="form-control" />
+        <span asp-validation-for="Color" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MaxSpeed"></label>
+        <input asp-for="MaxSpeed" class="form-control" />
+        <span asp-validation-for="MaxSpeed" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Cost"></label>
+        <input asp-for="Cost" class="form-control" />
+        <span asp-validation-for="Cost" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageFile" class="control-label"></label>
+        <input asp-for="ImageFile" type="file" class="form-control" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success mt-2">Create</button>
+    <a asp-action="Index" class="btn btn-secondary mt-2">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Infrastructure.DTO.BookingDTO>
+
+@{
+    ViewData["Title"] = "Bookings Index";
+}
+
+<h1>Bookings</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>User Name</th>
+        <th>User Email</th>
+        <th>Car</th>
+        <th>Race</th>
+        <th>Confirmation Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var booking in Model)
+    {
+        <tr>
+            <td>@booking.UserName</td>
+            <td>@booking.UserEmail</td>
+            <td><a asp-controller="Car" asp-action="Details" asp-route-id="@booking.CarId">@booking.CarName</a></td>
+            <td><a asp-controller="Race" asp-action="Details" asp-route-id="@booking.RaceId">@booking.RaceName</a></td>
+            <td>@(booking.IsConfirmed ? "Confirmed" : "Pending")</td>
+            <td>
+                    <form asp-action="ConfirmBooking" asp-route-id="@booking.Id" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-success">Confirm</button>
+                    </form>
+                    
+                    <form asp-action="CancelBooking" asp-route-id="@booking.Id" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Cancel</button>
+                    </form>
+                
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

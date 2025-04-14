@@ -1,0 +1,63 @@
+@using Domain.Models
+@using Infrastructure.DTO
+@{
+    var events = ViewBag.events as IEnumerable<EventDTO> ?? Enumerable.Empty<EventDTO>();
+}
+<div class="events-grid">
+    @if (events.Any())
+    {
+        @foreach (var obj in events)
+        {
+            <div class="event-card">
+                <!-- Header with event name and date -->
+                <div class="event-header">
+                    <h3 class="event-title">@obj.Name</h3>
+                    <div class="event-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        @obj.Date.ToString("MMMM dd, yyyy • h:mm tt")
+                    </div>
+                </div>
+
+                <!-- YouTube Video Embed -->
+                @if (!string.IsNullOrEmpty(obj.VideoUrl))
+                {
+                    var embedUrl = @obj.VideoUrl.Replace("watch?v=", "embed/");
+                    <div class="event-video">
+                        <iframe src=@embedUrl
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                    </div>
+                }
+
+                <!-- Event Details -->
+                <div class="event-body">
+                    <div class="event-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        @obj.Location
+                    </div>
+
+                    <p class="event-description">@obj.Description</p>
+
+                    <!-- Additional Racing-Specific Info -->
+                    <div class="event-meta">
+                        @if (true)
+                        {
+                            <span class="event-badge">
+                                <i class="fas fa-clipboard-list"></i> Registration Required
+                            </span>
+                        }
+
+                        @if (true)
+                        {
+                            <span class="event-badge">
+                                <i class="fas fa-users"></i> Max participants till completed
+                            </span>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

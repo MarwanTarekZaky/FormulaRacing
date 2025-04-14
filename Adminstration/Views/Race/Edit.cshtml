@@ -1,0 +1,62 @@
+@model Infrastructure.DTO.RaceDTO
+
+@{
+    ViewData["Title"] = "Edit Race";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>Race</h4>
+<hr />
+
+<form asp-action="Edit" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Length" class="control-label"></label>
+        <input asp-for="Length" class="form-control" />
+        <span asp-validation-for="Length" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Date" class="control-label"></label>
+        <input asp-for="Date" type="date" class="form-control" />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Location" class="control-label"></label>
+        <input asp-for="Location" class="form-control" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Occupancy" class="control-label"></label>
+        <input asp-for="Occupancy" class="form-control" />
+        <span asp-validation-for="Occupancy" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ImageFile" class="control-label"></label>
+        <input asp-for="ImageFile" type="file" class="form-control" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+    </div>
+
+    <div class="form-group form-check">
+        <label asp-for="ShowOnHomepage" class="form-check-label"></label>
+        <input asp-for="ShowOnHomepage" type="checkbox" class="form-check-input" />
+        <span asp-validation-for="ShowOnHomepage" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

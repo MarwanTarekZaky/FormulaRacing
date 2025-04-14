@@ -1,0 +1,56 @@
+@model Infrastructure.DTO.RaceDTO
+
+@{
+    ViewData["Title"] = "Race Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>Race</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Name</dt>
+        <dd>@Model.Name</dd>
+
+        <dt>Length</dt>
+        <dd>@Model.Length</dd>
+
+        <dt>Date</dt>
+        <dd>@Model.Date.ToString("MM/dd/yyyy")</dd>
+
+        <dt>Location</dt>
+        <dd>@Model.Location</dd>
+
+        <dt>Occupancy</dt>
+        <dd>@Model.Occupancy</dd>
+
+        <dt>Show on HomePage</dt>
+        @if (Model.ShowOnHomepage)
+        {
+            <dd>True</dd>
+        }
+        else
+        {
+            <dd>Hidden</dd>
+        }
+
+        <dt>Image</dt>
+        <dd>
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" alt="Race Image" class="img-thumbnail" />
+            }
+            else
+            {
+                <img src="~/media/StockRace.jpeg" alt="Car Image" width="100" />
+            }
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a href="@Url.Action("Edit", "Race", new { id = Model.Id })" class="btn btn-warning">Edit</a>
+    <a href="@Url.Action("Delete", "Race", new { id = Model.Id })" class="btn btn-danger">Delete</a>
+    <a href="@Url.Action("Index", "Race")" class="btn btn-secondary">Back to List</a>
+</div>

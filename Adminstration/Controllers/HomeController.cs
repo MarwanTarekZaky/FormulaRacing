@@ -1,16 +1,21 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Adminstration.Models;
+using IoC.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Adminstration.Controllers;
+[Authorize]
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController()
     {
-        _logger = logger;
+       
+        
     }
 
     public IActionResult Index()
@@ -18,11 +23,15 @@ public class HomeController : Controller
         return View();
     }
 
+
     public IActionResult Privacy()
     {
         return View();
     }
-
+    public IActionResult Documentation()
+    {
+        return View();
+    }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

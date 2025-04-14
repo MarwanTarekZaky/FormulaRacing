@@ -1,50 +1,180 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - Adminstration</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/Adminstration.styles.css" asp-append-version="true"/>
-</head>
-<body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Adminstration</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
+﻿<!--
+=========================================================
+* Soft UI Dashboard 3 - v1.1.0
+=========================================================
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2025 - Adminstration - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard
+* Copyright 2024 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="~/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="~/img/favicon.png">
+  <title>
+    Administration Dashboard
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="https://demos.creative-tim.com/soft-ui-dashboard/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="https://demos.creative-tim.com/soft-ui-dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- CSS Files -->
+  <link id="pagestyle" href="~/css/soft-ui-dashboard.css?v=1.1.0" rel="stylesheet" />
+  <!-- Nepcha Analytics (nepcha.com) -->
+  <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+</head>
+
+<body class="g-sidenav-show  bg-gray-100">
+<partial name="_Sidenav-main"/>
+
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+  <!-- Navbar -->
+  <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+    <div class="container-fluid py-1 px-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+          <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+          <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Managing</li>
+        </ol>
+        <h6 class="font-weight-bolder mb-0"></h6>
+      </nav>
+        
     </div>
-</footer>
+  </nav>
+  <!-- End Navbar -->
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-header pb-0">
+            <h6>Main content</h6>
+          </div>
+          <div class="card-body px-4 pt-4 pb-4">
+            @RenderBody()
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer pt-3  ">
+      <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6 mb-lg-0 mb-4">
+            <div class="copyright text-center text-sm text-muted text-lg-start">
+              © <script>
+                  document.write(new Date().getFullYear())
+                </script>,
+              made with <i class="fa fa-heart"></i> by
+              <a class="font-weight-bold" target="_blank">Pharaoh Code</a>
+              for a better web.
+            </div>
+          </div>
+          <div class="col-lg-6">
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</main>
+<div class="fixed-plugin">
+  <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
+    <i class="fa fa-cog py-2"> </i>
+  </a>
+  <div class="card shadow-lg ">
+    <div class="card-header pb-0 pt-3 ">
+      <div class="float-start">
+        <h5 class="mt-3 mb-0">Dashboard UI Configurator</h5>
+        <p>See  dashboard options.</p>
+      </div>
+      <div class="float-end mt-4">
+        <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
+          <i class="fa fa-close"></i>
+        </button>
+      </div>
+      <!-- End Toggle Button -->
+    </div>
+    <hr class="horizontal dark my-1">
+    <div class="card-body pt-sm-3 pt-0">
+      <!-- Sidebar Backgrounds -->
+      <div>
+        <h6 class="mb-0">Sidebar Colors</h6>
+      </div>
+      <a href="javascript:void(0)" class="switch-trigger background-color">
+        <div class="badge-colors my-2 text-start">
+          <span class="badge filter bg-primary active" data-color="primary" onclick="sidebarColor(this)"></span>
+          <span class="badge filter bg-gradient-dark" data-color="dark" onclick="sidebarColor(this)"></span>
+          <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
+          <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
+          <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
+          <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
+        </div>
+      </a>
+      <!-- Sidenav Type -->
+      <div class="mt-3">
+        <h6 class="mb-0">Sidenav Type</h6>
+        <p class="text-sm">Choose between 2 different sidenav types.</p>
+      </div>
+      <div class="d-flex">
+        <button class="btn btn-primary w-100 px-3 mb-2 active" data-class="bg-transparent" onclick="sidebarType(this)">Transparent</button>
+        <button class="btn btn-primary w-100 px-3 mb-2 ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
+      </div>
+      <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
+      <!-- Navbar Fixed -->
+      <div class="mt-3">
+        <h6 class="mb-0">Navbar Fixed</h6>
+      </div>
+      <div class="form-check form-switch ps-0">
+        <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
+      </div>
+      <hr class="horizontal dark my-sm-4">
+       
+      <div class="w-100 text-center">
+        
+      </div>
+    </div>
+  </div>
+</div>
+<!--   Core JS Files   -->
+<script src="../assets/js/core/popper.min.js"></script>
+<script src="../assets/js/core/bootstrap.min.js"></script>
+<script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+<script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+<!-- Github buttons -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="../assets/js/soft-ui-dashboard.min.js?v=1.1.0"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
+<partial name="_ValidationScriptsPartial" />
+
+
+
