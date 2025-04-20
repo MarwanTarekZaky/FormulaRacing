@@ -56,7 +56,7 @@ Unit of Work manages transactions
 ViewModels pass structured data to the frontend
 
 
-git clone https://github.com/MarwanTarekZaky/Formula.git
+git clone https://github.com/MarwanTarekZaky/FormulaRacing.git
 
 dotnet ef database update
 
