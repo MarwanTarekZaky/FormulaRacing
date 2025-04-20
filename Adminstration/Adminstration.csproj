@@ -77,6 +77,11 @@
 
     <ItemGroup>
       <AdditionalFiles Include="Views\Banner\Index.cshtml" />
+      <AdditionalFiles Include="Views\Brand\Create.cshtml" />
+      <AdditionalFiles Include="Views\Brand\Delete.cshtml" />
+      <AdditionalFiles Include="Views\Brand\Details.cshtml" />
+      <AdditionalFiles Include="Views\Brand\Edit.cshtml" />
+      <AdditionalFiles Include="Views\Brand\Index.cshtml" />
     </ItemGroup>
 
 </Project>

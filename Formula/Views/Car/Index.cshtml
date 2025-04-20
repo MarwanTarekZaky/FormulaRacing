@@ -1,4 +1,6 @@
 @using Infrastructure.DTO
+@using System.Text.Json
+@using System.Text.Json.Serialization
 @{
     Layout = "_mainLayout";
 }
@@ -12,23 +14,35 @@
     <div class="swiper-wrapper">
         @foreach (var car in (ViewBag.cars as List<CarDTO>)!)
         {
-        <div class="swiper-slide">
-            <div class="car-card">
-                <img src="@($"https://localhost:7027/admin-content/{car.ImageUrl}")" alt="@car.Model" class="car-img">
-                <div class="car-details">
-                    <h3>@car.BrandName - @car.Model</h3>
-                    <p><strong>Max Speed:</strong> @car.MaxSpeed km/h</p>
-                    <p><strong>Color:</strong> @car.Color</p>
-                    <p><strong>Cost per ride:</strong> $@car.Cost</p>
+            
+            <div class="swiper-slide">
+                <div class="car-card hover-container">
+                <div class="img-wrapper" data-car-id="@car.Id">
+                    <a asp-action="CarImages" asp-route-carId="@car.Id" >
+                        <img src="@($"https://localhost:7027/admin-content/{car.ImageUrl}")" alt="@car.Model" class="car-img" >
+                        
+                        <div class="hover-text">
+                            Show car images
+                        </div>
+                        </a>
+                    </div>
+                    <div class="car-details">
+                        <h3>@car.Model</h3>
+                        <p><strong>Max Speed:</strong> @car.MaxSpeed km/h</p>
+                        <p><strong>Color:</strong> @car.Color</p>
+                        <p><strong>Cost per ride:</strong> $@car.Cost</p>
+                    </div>
                 </div>
             </div>
-        </div>
+          
         }
     </div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-pagination"></div>
 </div>
+
+
 
 <style>
     .swiper {
@@ -71,6 +85,72 @@
     .swiper-pagination-bullet-active {
         background: #e63946;
     }
+    .hover-container {
+        position: relative;
+    }
+
+    .img-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+
+    .hover-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 12px 20px;
+        border-radius: 8px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+    }
+
+    .img-wrapper:hover .hover-text {
+        opacity: 1;
+    }
+
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .modal-content {
+        position: relative;
+        margin: 5% auto;
+        width: 90%;
+        max-width: 1000px;
+    }
+
+    .close-modal {
+        position: absolute;
+        top: -30px;
+        right: 0;
+        color: white;
+        font-size: 40px;
+        cursor: pointer;
+        font-weight: bold;
+        z-index: 99999;
+    }
+
+    .image-swiper .swiper-slide img {
+        width: 100%;
+        max-height: 80vh;
+        object-fit: contain;
+    }
+    
+    
 </style>
 
 <script>
@@ -87,4 +167,6 @@
             clickable: true
         }
     });
+
+    
 </script>

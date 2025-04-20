@@ -1,0 +1,47 @@
+@model HomeContentDescriptionDTO
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+  
+
+}
+
+
+<h1>@ViewData["Title"]</h1>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <div class="mb-3">
+            <strong>Status: @ViewData["Message"] </strong> 
+        </div>
+    </dl>
+</div>
+
+<form asp-action="Create" method="post" >
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    
+    <div class="form-group">
+        <label asp-for="@Model.RacesDescription" class="control-label"></label>
+        <textarea asp-for="RacesDescription"  class="form-control" rows="5"></textarea>
+        <span asp-validation-for="RacesDescription" class="text-danger"></span>
+    </div>
+    <a href="@Url.Action("EditRaceDescription", "HomeContentDescription", new { id = Model.Id })" class="btn btn-info">Edit Race Description</a>
+
+    <div class="form-group">
+        <label asp-for="TracksDescription" class="control-label"></label>
+        <textarea asp-for="TracksDescription"  class="form-control" rows="5"></textarea>
+        <span asp-validation-for="TracksDescription" class="text-danger"></span>
+    </div>
+    <a href="@Url.Action("EditTrackDescription", "HomeContentDescription", new { id = Model.Id })" class="btn btn-info">Edit Track Description</a>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+</form>
+
+<div>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Back to Home</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

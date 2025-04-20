@@ -24,6 +24,11 @@ builder.Services.AddScoped<IRaceService, RaceService>();
 builder.Services.AddScoped<IEventService, EventService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IBannerService, BannerService>();
+builder.Services.AddScoped<IHomePageContentService, HomePageContentService>();
+builder.Services.AddScoped<ICarImageService, CarImageService>();
+builder.Services.AddScoped<IRaceCarService, RaceCarService>();
+builder.Services.AddScoped<IHomeContentDescriptionService, HomeContentDescriptionService>();
+
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile)); 
 
 

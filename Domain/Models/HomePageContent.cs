@@ -7,9 +7,8 @@ namespace Domain.Models;
 public class HomePageContent
 {
     public int Id { get; set; }
-    public required string RaceParagraph { get; set; }
+
     public required string BannerText { get; set; }
-    public required string ImageParagraph { get; set; }
     
     [NotMapped]
     [Display(Name = "Upload Video Background")]

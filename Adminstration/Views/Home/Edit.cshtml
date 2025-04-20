@@ -1,0 +1,46 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Infrastructure.DTO.HomePageContentDTO
+
+@{
+    ViewData["Title"] = "Edit Home Page Banner";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="BannerText" class="control-label"></label>
+        <input asp-for="BannerText" class="form-control" />
+        <span asp-validation-for="BannerText" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="VideoFile" class="control-label"></label>
+        <input type="file" asp-for="VideoFile" class="form-control-file" />
+        <span asp-validation-for="VideoFile" class="text-danger"></span>
+        @if ((!String.Equals("VideoPath is empty", Model.VideoPath)) && !String.IsNullOrEmpty(Model.VideoPath))
+        {
+            <div class="mt-2">
+                <small>Current video: <a href="@Model.VideoPath" target="_blank">View</a></small>
+            </div>
+        }
+        else
+        {
+            <div class="mt-2">
+                <small>Current video: <a href="~/media/videoplayback.mp4" target="_blank">View</a></small>
+            </div>
+        }
+    </div>
+    
+    
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,27 @@
+@model Infrastructure.DTO.BrandDTO
+
+@{
+    ViewData["Title"] = "Brand Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>Brand</h4>
+    <hr />
+    
+    <form asp-action="Details" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" disabled class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </form>
+
+</div>
+
+<div>
+    <a href="@Url.Action("Edit", "Brand", new { id = Model.Id })" class="btn btn-warning">Edit</a>
+    <a href="@Url.Action("Delete", "Brand", new { id = Model.Id })" class="btn btn-danger">Delete</a>
+    <a href="@Url.Action("Index", "Brand")" class="btn btn-secondary">Back to List</a>
+</div>

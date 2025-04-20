@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Domain.Models.CarImage>
+
+@{
+    ViewData["Title"] = "Car Images";
+    var carId = ViewBag.carId;
+}
+
+<h1>Car Images</h1>
+
+<a asp-action="Create" asp-route-carId="@carId" class="btn btn-primary mb-3">Add New Car Image</a>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Image</th>
+        <th>Hidden Visibility</th>
+        <th>Display Order</th>
+        <th>Manipulate</th>
+        <th>To trash</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var image in Model)
+    {
+        <tr>
+            <td>
+                <div style="width: 200px; height: 150px; overflow: hidden;">
+                    <img src="@image.ImageUrl"
+                         style="width: 100%; height: 100%; object-fit: cover;"
+                         class="img-fluid"
+                         alt="Car Image not available" />
+                </div>
+            </td>
+            @* <td><img src="@image.ImageUrl"  width="200" height="150" style="object-fit: cover;" class="img-thumbnail"  alt="Car Image not available"/></td> *@
+            <td>@image.Hidden</td>
+            <td>@image.DisplayOrder</td>
+            <td>
+                <a asp-action="Edit" asp-route-carId="@carId" asp-route-id="@image.Id" class="btn btn-sm btn-info">Edit</a>
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@image.Id" asp-route-carId="@carId" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+
+        </tr>
+    }
+    <tr></tr>
+    </tbody>
+</table>

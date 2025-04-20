@@ -1,0 +1,39 @@
+﻿@model IEnumerable<BrandDTO>
+
+@{
+    ViewData["Title"] = "Brand List";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a href="@Url.Action("Create", "Brand")" class="btn btn-primary">Create New Brand</a>
+</p>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Details</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var brand in Model)
+    {
+        <tr>
+            <td>@brand.Name</td>
+            <td>
+                <a href="@Url.Action("Details", "Brand", new { id = brand.Id })" class="btn btn-info">Details</a>
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", "Brand", new { id = brand.Id })" class="btn btn-warning">Edit</a>
+            </td>
+            <td>
+                <a href="@Url.Action("Delete", "Brand", new { id = brand.Id })" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

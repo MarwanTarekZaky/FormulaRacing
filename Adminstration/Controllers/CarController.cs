@@ -1,8 +1,10 @@
 using System.Diagnostics;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Mvc;
 using Adminstration.Models;
 using Domain.Models;
 using Infrastructure.DTO;
+using IoC.Services.Implementation;
 using IoC.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
 
@@ -12,22 +14,30 @@ namespace Adminstration.Controllers;
 public class CarController : Controller
 {
     private readonly ICarService _carService;
-
-        public CarController(ICarService carService)
+    private readonly IBrandService _brandService;
+    
+        public CarController(ICarService carService, IBrandService brandService)
         {
             _carService = carService;
+            _brandService = brandService;
+          
         }
 
         // GET: Car
         public async Task<IActionResult> Index()
         {
             var cars = await _carService.GetAllAsync();
+            var brands = await _brandService.GetSelectListAsync();
+            ViewBag.Brands = brands;
             return View(cars);
         }
 
         // GET: Car/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var brands = await _brandService.GetSelectListAsync();
+            ViewBag.Brands = brands;
+            
             return View();
         }
 
@@ -41,6 +51,8 @@ public class CarController : Controller
                 await _carService.AddAsync(carDto);
                 return RedirectToAction(nameof(Index));
             }
+            var brands = await _brandService.GetSelectListAsync();
+            ViewBag.Brands = brands;
             return View(carDto);
         }
 
@@ -49,6 +61,8 @@ public class CarController : Controller
         {
             var carDto = await _carService.GetByIdAsync(id);
             if (carDto == null) return NotFound();
+            var brands = await _brandService.GetSelectListAsync();
+            ViewBag.Brands = brands;
             return View(carDto);
         }
 
@@ -64,6 +78,8 @@ public class CarController : Controller
                 await _carService.UpdateAsync(carDto);
                 return RedirectToAction(nameof(Index));
             }
+            var brands = await _brandService.GetSelectListAsync();
+            ViewBag.Brands = brands;
             return View(carDto);
         }
 
@@ -72,6 +88,8 @@ public class CarController : Controller
         {
             var carDto = await _carService.GetByIdAsync(id);
             if (carDto == null) return NotFound();
+            var brands = await _brandService.GetSelectListAsync();
+            ViewBag.Brands = brands;
             return View(carDto);
         }
 
@@ -88,7 +106,6 @@ public class CarController : Controller
         {
             var car = await _carService.GetByIdAsync(id);
             if (car == null) return NotFound();
-
             return View(car);
         }
   

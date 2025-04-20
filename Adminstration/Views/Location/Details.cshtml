@@ -1,0 +1,23 @@
+@model Infrastructure.DTO.LocationDTO
+
+@{
+    ViewData["Title"] = "Location Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>Location</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <div class="mb-3">
+            <strong>Name:</strong> @Model.Name
+        </div>
+    </dl>
+</div>
+
+<div>
+    <a href="@Url.Action("Edit", "Location", new { id = Model.Id })" class="btn btn-warning">Edit</a>
+    <a href="@Url.Action("Delete", "Location", new { id = Model.Id })" class="btn btn-danger">Delete</a>
+    <a href="@Url.Action("Index", "Location")" class="btn btn-secondary">Back to List</a>
+</div>

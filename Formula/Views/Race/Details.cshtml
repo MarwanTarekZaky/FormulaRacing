@@ -1,0 +1,65 @@
+@using Domain.Models
+@model Infrastructure.ViewModel.RaceDetailsViewModel
+@using Infrastructure.DTO
+@{
+    Layout = "_mainLayout";
+    var raceCarsList = Model.Cars ?? new List<CarDTO>();
+    ViewData["Title"] = "Race Details";
+}
+<h2 class="text-center mt-4 mb-4">🏁 @Model.Race.Name Details 🏁</h2>
+
+<div class="race-info mb-5 text-center">
+    <h4>Date: @Model.Race.Date.ToString("MMMM d, yyyy")</h4>
+    <p>Number of competitors in race @Model.Race.Occupancy </p>
+</div>
+
+<div class="race-details-container">
+    <div class="car-gallery">
+        <h2 class="section-title">🚗 Cars in this Race</h2>
+        <p class="book-now-text">
+            🚗 Ready to race? <strong><p class="book-link">Book the car now!</p></strong>
+        </p>
+        @if (!raceCarsList.Any())
+        {
+            <div class="no-cars-container">
+                <div class="no-cars-message">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                        </svg>
+                    </div>
+                    <h2>Oops! No Cars Available</h2>
+                    <p class="lead">We apologize, but there are currently no cars available for this race.</p>
+                    <p>Please check back later or browse our other exciting races!</p>
+                    <div class="cta-buttons">
+                        <a asp-controller="Race" asp-action="Index" class="btn btn-primary">View Other Races</a>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="car-grid">
+                @foreach (var Car in raceCarsList)
+                {
+                    <div class="car-card">
+                        <a href="@Url.Action("RaceCarDetails", "Race", new { carId = Car.Id, raceId = Model.Race.Id })">
+                        <img src="@($"https://localhost:7027/admin-content/{(Car.CarImages.FirstOrDefault()?.ImageUrl?.TrimStart('/') ?? "images/default-car.jpg")}")"
+                             alt="@Car.Model" class="car-image"/>
+                    <div class="car-details">
+                        <h3>@Car.Model</h3>
+                        <p><strong>Brand:</strong> @Car.BrandName</p>
+                        <p><strong>Color:</strong> @Car.Color</p>
+                        <p><strong>Max Speed:</strong> @Car.MaxSpeed km/h</p>
+                        <p><strong>Cost per Ride:</strong> $@Car.Cost</p>
+                    </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+

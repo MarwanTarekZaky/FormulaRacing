@@ -52,24 +52,33 @@
             <span asp-validation-for="Booking.UserEmail" class="text-danger"></span>
         </div>
 
-        <!-- Car Selection using SelectList -->
-        <div class="form-group">
-            <label for="car">Car Selection</label>
-            <select id="car" asp-for="Booking.CarId" class="form-control" asp-items="@Model.Cars">
-                <option value="">Select a Car</option> <!-- Default Option -->
-            </select>
-            <span asp-validation-for="Booking.CarId" class="text-danger"></span>
-        </div>
+     
 
         <!-- Race Selection using SelectList -->
+        <!-- Race Dropdown -->
         <div class="form-group">
             <label for="race">Race Selection</label>
-            <select id="race" asp-for="Booking.RaceId" class="form-control" asp-items="@Model.Races">
-                <option value="">Select a Race</option> <!-- Default Option -->
+            <select id="race" asp-for="Booking.RaceId" class="form-control">
+                <option value="">Select a Race</option>
+                @foreach (var race in Model.Races)
+                {
+                    <option value="@race.Value">@race.Text</option>
+                }
             </select>
             <span asp-validation-for="Booking.RaceId" class="text-danger"></span>
         </div>
-      
+
+        <!-- Car Selection using SelectList -->
+
+        <!-- Car Dropdown -->
+        <div class="form-group">
+            <label for="car">Car Selection</label>
+            <select id="car" asp-for="Booking.CarId" class="form-control" disabled>
+                <option value="">Select a Car</option>
+            </select>
+            <span asp-validation-for="Booking.CarId" class="text-danger"></span>
+        </div>
+        
         <!-- Submit Button -->
        <button type="submit"  asp-controller="Booking" asp-action="BookingRequest" class="btn btn-primary">Submit Request</button>
        <!-- Cancel Button -->
@@ -85,3 +94,25 @@
 </body>
 
 </html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+        $(document).ready(function () {
+            $('#race').change(function () {
+                var raceId = $(this).val();
+                var carDropdown = $('#car');
+
+                carDropdown.empty().append($('<option>').text('Select a Car').attr('value', ''));
+                carDropdown.prop('disabled', true);
+
+                if (raceId) {
+                    $.getJSON('/Booking/GetCarsByRace', { raceId: raceId }, function (cars) {
+                        $.each(cars, function (i, car) {
+                            carDropdown.append($('<option>').text(car.text).attr('value', car.value));
+                        });
+                        carDropdown.prop('disabled', false);
+                    });
+                }
+            });
+        });
+    </script>

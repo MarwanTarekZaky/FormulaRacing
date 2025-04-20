@@ -1,0 +1,38 @@
+@model Domain.Models.CarImage
+
+@{
+    ViewData["Title"] = "Create Car Image";
+    var carId = ViewBag.carId;
+}
+
+<h1>Create Car Image</h1>
+
+<form asp-action="Create" asp-route-carId="@carId" enctype="multipart/form-data">
+    <input type="hidden" asp-for="CarId" value="@carId"/>
+    
+    
+    <div class="form-group">
+        <label asp-for="ImageFile" class="control-label"></label>
+        <input asp-for="ImageFile" type="file" class="form-control" required/>
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+    </div>
+
+    <div class="form-group number">
+        <label asp-for="DisplayOrder" class="control-label"></label>
+        <input asp-for="DisplayOrder" type="number" class="form-range"/>
+        <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group form-check">
+        <label asp-for="Hidden" class="form-check-label"></label>
+        <input asp-for="Hidden" type="checkbox" class="form-check-input"/>
+        <span asp-validation-for="Hidden" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-2">Create</button>
+    <a asp-action="Index" asp-route-carId="@carId" class="btn btn-secondary mt-2">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

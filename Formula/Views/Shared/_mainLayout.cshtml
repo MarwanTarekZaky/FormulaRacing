@@ -9,12 +9,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <link rel="stylesheet" href="industrious/assets/css/main.css">
+    <link rel="stylesheet" href="/industrious/assets/css/main.css">
     <title>@ViewData["Title"] at Formula</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="/css/site.css">
+    <!-- Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+    <!-- Slick Carousel Theme (optional) -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 </head>
 
 
@@ -114,15 +119,20 @@
     Design by <a href="#menu">Pharaoh Code  © 2025 Formula Racing. All rights reserved.</a>.
 </div>
 
-<!-- Scripts -->
-<script src="industrious/assets/js/jquery.min.js"></script>
-<script src="industrious/assets/js/browser.min.js"></script>
-<script src="industrious/assets/js/breakpoints.min.js"></script>
-<script src="industrious/assets/js/util.js"></script>
-<script src="industrious/assets/js/main.js"></script>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Scripts -->
+    <script src="/industrious/assets/js/jquery.min.js"></script>
+    <script src="/industrious/assets/js/browser.min.js"></script>
+    <script src="/industrious/assets/js/breakpoints.min.js"></script>
+    <script src="/industrious/assets/js/util.js"></script>
+    <script src="/industrious/assets/js/main.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- jQuery (must be first) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Slick Carousel JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 @await RenderSectionAsync("Scripts", required: false)
 
 </body>

@@ -12,37 +12,48 @@
 <form asp-action="Edit" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
-        <input asp-for="Name" class="form-control" />
+        <input asp-for="Name" class="form-control" required />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Length" class="control-label"></label>
-        <input asp-for="Length" class="form-control" />
+        <input asp-for="Length" class="form-control"required/>
         <span asp-validation-for="Length" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Date" class="control-label"></label>
-        <input asp-for="Date" type="date" class="form-control" />
+        <input asp-for="Date" type="date" class="form-control" required/>
         <span asp-validation-for="Date" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Location" class="control-label"></label>
-        <input asp-for="Location" class="form-control" />
-        <span asp-validation-for="Location" class="text-danger"></span>
+        <label asp-for="LocationId"></label>
+        <select asp-for="LocationId" asp-items="ViewBag.Locations" required class="form-control ">
+            <option value="">-- Select Location --</option>
+        </select>
+        <span asp-validation-for="LocationId" class="text-danger"></span>
     </div>
-
+    
     <div class="form-group">
         <label asp-for="Occupancy" class="control-label"></label>
-        <input asp-for="Occupancy" class="form-control" />
+        <input asp-for="Occupancy" class="form-control" required />
         <span asp-validation-for="Occupancy" class="text-danger"></span>
     </div>
-
+    <div class="form-group">
+    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        <img src="@Model.ImageUrl" alt="Race Image" class="img-thumbnail image"  height="100px" width="200px" />
+    }
+    else
+    {
+        <img src="~/media/StockRace.jpeg" alt="Car Image" width="100" />
+    } 
+    </div>
     <div class="form-group">
         <label asp-for="ImageFile" class="control-label"></label>
-        <input asp-for="ImageFile" type="file" class="form-control" />
+        <input asp-for="ImageFile" type="file" class="form-control" required/>
         <span asp-validation-for="ImageFile" class="text-danger"></span>
     </div>
 
@@ -52,11 +63,30 @@
         <span asp-validation-for="ShowOnHomepage" class="text-danger"></span>
     </div>
 
+    <div class="form-group form-check">
+        <label asp-for="Visibility" class="form-check-label"></label>
+        <input asp-for="Visibility" type="checkbox" class="form-check-input" />
+        <span asp-validation-for="Visibility" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SelectedCarIds"></label>
+        <select asp-for="SelectedCarIds" asp-items="@ViewBag.Cars" multiple class="form-control select2">
+            <option value="">-- Select Cars --</option>
+        </select>
+        <span asp-validation-for="SelectedCarIds" class="text-danger"></span>
+    </div>
+
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a asp-action="Index" class="btn btn-secondary mt-2">Cancel</a>
     </div>
 </form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+    $('.select2').select2();
+</script>
 }

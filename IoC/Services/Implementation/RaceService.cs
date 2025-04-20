@@ -30,9 +30,9 @@ public class RaceService : IRaceService
        
         return _mapper.Map<IEnumerable<RaceDTO>>(races);
     }
-    public  Task<SelectList> GetSelectListAsync()
+    public  Task<SelectList> GetSelectListAsync(Expression<Func<Race,bool>>? filter = null)
     {
-        var raceList =  GetAllAsync().GetAwaiter().GetResult().Select(u => new SelectListItem
+        var raceList =  GetAllAsync(filter).GetAwaiter().GetResult().Select(u => new SelectListItem
         {
             Text = u.Name,
             Value = u.Id.ToString()
@@ -45,7 +45,7 @@ public class RaceService : IRaceService
         return _mapper.Map<RaceDTO?>(race);
     }
 
-    public async Task AddAsync(RaceDTO raceDto)
+    public async Task<int> AddAsync(RaceDTO raceDto)
     {
         var race = _mapper.Map<Race>(raceDto);
 
@@ -54,16 +54,20 @@ public class RaceService : IRaceService
             // Handle image upload here
             race.ImageUrl = await SaveImageAsync(raceDto.ImageFile);
         }
-
+        
+        race.LocationName = (await _unitOfWork.Locations.GetByIdAsync(raceDto.LocationId))?.Name;
+        
         await _unitOfWork.Races.AddAsync(race);
         await _unitOfWork.CompleteAsync();
+        return race.Id;
     }
 
-    public async Task UpdateAsync(RaceDTO raceDto)
+    public async Task<int> UpdateAsync(RaceDTO raceDto)
     {
         var race = await _unitOfWork.Races.GetByIdAsync(raceDto.Id);
         
-        if (race == null) return;
+        if (race == null) return -1;
+        
          _mapper.Map(raceDto, race);
   
 
@@ -72,9 +76,12 @@ public class RaceService : IRaceService
             // Handle image update
            race.ImageUrl =  await SaveImageAsync(raceDto.ImageFile);
         }
-
+        
+        race.LocationName = (await _unitOfWork.Locations.GetByIdAsync(raceDto.LocationId))?.Name;
+        
         _unitOfWork.Races.Update(race);
         await _unitOfWork.CompleteAsync();
+        return race.Id;
     }
 
     public async Task DeleteAsync(int id)

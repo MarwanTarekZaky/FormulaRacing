@@ -1,0 +1,40 @@
+@model HomeContentDescriptionDTO
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+
+   
+}
+
+
+<h1>@ViewData["Title"]</h1>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <div class="mb-3">
+            <strong>Track Description Content</strong> 
+        </div>
+    </dl>
+</div>
+
+<form asp-action="EditTrackDescription" method="post" >
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    
+    <div class="form-group">
+        <label asp-for="@Model.TracksDescription" class="control-label"></label>
+        <textarea asp-for="TracksDescription"  class="form-control" rows="5"></textarea>
+        <span asp-validation-for="TracksDescription" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Modify Content</button>
+    </div>
+</form>
+
+<div>
+    <a href="@Url.Action("Index", "HomeContentDescription")" class="btn btn-secondary">Back to Home</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

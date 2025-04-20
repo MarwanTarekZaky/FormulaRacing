@@ -6,6 +6,7 @@ using Infrastructure.MainContext;
 using Infrastructure.Repository;
 using IoC.Services.Implementation;
 using IoC.Services.Interface;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
@@ -27,9 +28,19 @@ builder.Services.AddScoped<IRaceService, RaceService>();
 builder.Services.AddScoped<IEventService, EventService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IBannerService, BannerService>();
+builder.Services.AddScoped<IHomePageContentService, HomePageContentService>();
+builder.Services.AddScoped<IBrandService, BrandService>();
+builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<ICarImageService, CarImageService>();
+builder.Services.AddScoped<IRaceCarService, RaceCarService>();
+builder.Services.AddScoped<IHomeContentDescriptionService, HomeContentDescriptionService>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile)); 
 
-
+// Add file upload size limit (adjust as needed)
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 104857600; // 100MB
+});
 // builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddRoles<IdentityRole>()
@@ -93,6 +104,12 @@ using (var scope = app.Services.CreateScope())
         }
     }
 }
+
+// app.UseRouting();
+// app.MapControllerRoute(
+//     name: "CarImage",
+//     pattern: "CarImage/{action}/{carId}/{id?}",
+//     defaults: new { controller = "CarImage", action = "Index" });
 
 app.MapRazorPages();
 app.Run();

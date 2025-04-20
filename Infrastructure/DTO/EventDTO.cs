@@ -14,5 +14,8 @@ namespace Infrastructure.DTO;
         public string? VideoUrl { get; set; }
         
         public bool ShowOnHomepage { get; set; } = false; // Show in the main home page for the Client UI , Default = hidden
+        
+        [Display(Name = "Visibility option")]
+        public bool Visibility { get; set; } = true; // Show in the pages for the Client UI , Default = Visible
     }
 

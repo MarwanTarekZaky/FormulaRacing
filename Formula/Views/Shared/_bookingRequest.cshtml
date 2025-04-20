@@ -1,0 +1,39 @@
+@model Infrastructure.ViewModel.BookingFormViewModel;
+<div id="booking" class="section">
+    <div class="section-center">
+        <div class="container">
+            <div class="row">
+                <div class="booking-form">
+                    <div class="form-header">
+                        <h1>Book a car</h1>
+                    </div>
+                    <form method="post" enctype="multipart/form-data" asp-controller="Booking" asp-action="BookingRequest">
+                        <div asp-validation-summary="All"></div>
+                        <!-- User Information -->
+                        <div class="form-group">
+                            <label for="username">Full Name</label>
+                            <input type="text" id="username" asp-for="Booking.UserName" class="form-control" required/>
+                            <span asp-validation-for="Booking.UserName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" asp-for="Booking.UserEmail" class="form-control" required/>
+                            <span asp-validation-for="Booking.UserEmail" class="text-danger"></span>
+                        </div>
+                        @Html.HiddenFor(e=>e.Booking.CarId, Model.Booking?.CarId)
+                        @Html.HiddenFor(e=>e.Booking.RaceId, Model.Booking?.RaceId)
+
+                      
+
+                        <!-- Submit Button -->
+                        <button type="submit"  asp-controller="Booking" asp-action="BookingRequest" class="btn btn-primary">Submit Request</button>
+                        <!-- Cancel Button -->
+                        <a href="javascript:history.back()" class="btn btn-danger">Cancel</a>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,8 +9,8 @@ public interface IRaceService
 {
     Task<IEnumerable<RaceDTO>> GetAllAsync( Expression<Func<Race,bool>>? filter = null);
     Task<RaceDTO?> GetByIdAsync(int id);
-    Task AddAsync(RaceDTO raceDto);
-    Task UpdateAsync(RaceDTO raceDto);
+    Task<int> AddAsync(RaceDTO raceDto);
+    Task<int> UpdateAsync(RaceDTO raceDto);
     Task DeleteAsync(int id);
-    Task<SelectList> GetSelectListAsync();
+    Task<SelectList> GetSelectListAsync(Expression<Func<Race,bool>>? filter = null);
 }

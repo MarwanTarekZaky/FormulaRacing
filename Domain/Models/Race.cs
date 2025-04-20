@@ -28,12 +28,26 @@ public class Race
     [Display(Name = "Upload Image")]
     public IFormFile? ImageFile { get; set; }
 
-    [Required]
-    public string Location { get; set; } = string.Empty;
+    [Display(Name = "Race Location")]
+    public int? LocationId { get; set; } // Foreign Key
+    [ForeignKey("LocationId")]
+    [Display(Name = "Race Location")]
+    public Location? Location { get; set; }
+    [MaxLength(100)]
+    public string? LocationName { get; set; } // Optional, for display only
 
     [Range(1, 10000)]
     public int Occupancy { get; set; } // Max number of participants or teams
     
     [Display(Name = "Show on Homepage ")]
     public bool ShowOnHomepage { get; set; } = false; // Show in the main home page for the Client UI , Default = hidden
+    
+    public bool Visibility { get; set; } = false; // Show in the pages for the Client UI , Default = Not Visible
+    
+    [Display(Name = "Booked seats number")]
+    public int NumberOfBookedSeats { get; set; } = 0;
+    
+    // Navigation property for the many-to-many relation
+    public ICollection<RaceCar> RaceCars { get; set; } = new List<RaceCar>();
+
 }

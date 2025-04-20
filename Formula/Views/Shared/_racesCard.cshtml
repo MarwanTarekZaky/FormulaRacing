@@ -10,6 +10,7 @@
         @foreach (var race in races)
         {
             <div class="race-card">
+                <a href="@Url.Action("Details", "Race", new{id = race.Id})">
                 <!-- Image with Date Badge -->
                 <div class="race-image" style="background-image: url('@("https://localhost:7027/admin-content" + race.ImageUrl ?? "/images/default-race.jpg")')">
                     <span class="race-date">@race.Date.ToString("MMM dd, yyyy")</span>
@@ -21,10 +22,13 @@
 
                     <div class="race-meta">
                         <span class="race-location">
-                            <i class="fas fa-map-marker-alt"></i> @race.Location
+                            <i class="fas fa-map-marker-alt"></i> @race.LocationName
                         </span>
                         <span class="race-occupancy">
-                            <i class="fas fa-users"></i> @race.Occupancy
+                            <i class="fas fa-users"></i> @(race.Occupancy - race.NumberOfBookedSeats) Spot Left
+                        </span>
+                        <span class="race-occupancy">
+                            <i class="fas fa-users"></i> @race.NumberOfBookedSeats Booked
                         </span>
                     </div>
 
@@ -32,8 +36,7 @@
                         <i class="fas fa-route"></i> @race.Length.ToString("0.0") km
                     </div>
                 </div>
-
-
+                </a>
             </div>
         }
     }

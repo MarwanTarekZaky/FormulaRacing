@@ -9,44 +9,79 @@
 <div>
     <h4>Race</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>Name</dt>
-        <dd>@Model.Name</dd>
+    <form asp-action="Index" method="get">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" disabled class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
 
-        <dt>Length</dt>
-        <dd>@Model.Length</dd>
+        <div class="form-group">
+            <label asp-for="Length" class="control-label"></label>
+            <input asp-for="Length" disabled class="form-control" />
+            <span asp-validation-for="Length" class="text-danger"></span>
+        </div>
 
-        <dt>Date</dt>
-        <dd>@Model.Date.ToString("MM/dd/yyyy")</dd>
+        <div class="form-group">
+            <label asp-for="Date" class="control-label"></label>
+            <input asp-for="Date" disabled type="date" class="form-control" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
 
-        <dt>Location</dt>
-        <dd>@Model.Location</dd>
+        <div class="form-group">
+            <label asp-for="LocationId"></label>
+            <select asp-for="LocationId" disabled asp-items="ViewBag.Locations" class="form-control">
+                <option value="">-- Select Location --</option>
+            </select>
+            <span asp-validation-for="LocationId" class="text-danger"></span>
+        </div>
 
-        <dt>Occupancy</dt>
-        <dd>@Model.Occupancy</dd>
-
-        <dt>Show on HomePage</dt>
-        @if (Model.ShowOnHomepage)
-        {
-            <dd>True</dd>
-        }
-        else
-        {
-            <dd>Hidden</dd>
-        }
-
-        <dt>Image</dt>
-        <dd>
+        <div class="form-group">
+            <label asp-for="Occupancy" class="control-label"></label>
+            <input asp-for="Occupancy" disabled class="form-control" />
+            <span asp-validation-for="Occupancy" class="text-danger"></span>
+        </div>
+        <div class="form-group">
             @if (!string.IsNullOrEmpty(Model.ImageUrl))
             {
-                <img src="@Model.ImageUrl" alt="Race Image" class="img-thumbnail" />
+                <img src="@Model.ImageUrl" alt="Race Image" class="img-thumbnail image"  height="100px" width="200px" />
             }
             else
             {
                 <img src="~/media/StockRace.jpeg" alt="Car Image" width="100" />
             }
-        </dd>
-    </dl>
+        </div>
+
+        <div class="form-group form-check">
+            <label asp-for="ShowOnHomepage" class="form-check-label"></label>
+            <input asp-for="ShowOnHomepage" disabled type="checkbox" class="form-check-input" />
+            <span asp-validation-for="ShowOnHomepage" class="text-danger"></span>
+        </div>
+
+        <div class="form-group form-check">
+            <label asp-for="Visibility" class="form-check-label"></label>
+            <input asp-for="Visibility" disabled type="checkbox" class="form-check-input" />
+            <span asp-validation-for="Visibility" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="SelectedCarIds"></label>
+            <select asp-for="SelectedCarIds" disabled asp-items="@ViewBag.Cars" multiple class="form-control select2">
+                <option value="">-- Select Cars --</option>
+            </select>
+            <span asp-validation-for="SelectedCarIds" class="text-danger"></span>
+        </div>
+    </form>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script>
+            $('.select2').select2();
+        </script>
+    }
+
 </div>
 
 <div>

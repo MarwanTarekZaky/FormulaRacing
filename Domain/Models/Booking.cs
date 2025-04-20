@@ -20,13 +20,13 @@ public class Booking
 
     // One-to-One with Car
     [Display(Name = "Booked Car")]
-    public int CarId { get; set; }
+    public int? CarId { get; set; }
     [ValidateNever]
     public Car Car { get; set; }
 
     // One-to-One with Race
     [Display(Name = "Associated Race")]
-    public int RaceId { get; set; }
+    public int? RaceId { get; set; }
     [ValidateNever]
     public Race Race { get; set; }
 }

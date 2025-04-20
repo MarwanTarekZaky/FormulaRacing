@@ -20,21 +20,32 @@ public class HomeController : Controller
     private readonly IHtmlLocalizer<SharedResource> _htmlLocalizer;
     private readonly IRaceService _raceService;
     private readonly IEventService _eventService;
+    private readonly IHomePageContentService _homePageContentService;
+    private readonly IHomeContentDescriptionService _homeContentDescriptionService;
+
     public HomeController(ILogger<HomeController> logger, 
         IStringLocalizer<SharedResource> stringLocalizer,
-        IHtmlLocalizer<SharedResource> htmlLocalizer, IRaceService raceService, ICarService carService, IEventService eventService)
+        IHtmlLocalizer<SharedResource> htmlLocalizer, IRaceService raceService,
+        ICarService carService, IEventService eventService,
+        IHomePageContentService homePageContentService,
+        IHomeContentDescriptionService homeContentDescriptionService)
     {
         _logger = logger;
         _stringLocalizer = stringLocalizer;
         _htmlLocalizer = htmlLocalizer;
         _raceService = raceService;
         _eventService = eventService;
+        _homePageContentService = homePageContentService;
+        _homeContentDescriptionService = homeContentDescriptionService;
     }
     public async Task<IActionResult> Index()
     {
-        ViewBag.races  = (await _raceService.GetAllAsync(u => u.ShowOnHomepage == true)).OrderBy(u => u.Date).Take(3);
+        ViewBag.races  = (await _raceService.GetAllAsync(u => (u.ShowOnHomepage == true)  && (u.Occupancy > u.NumberOfBookedSeats) && (u.Visibility == true))).OrderBy(u => u.Date).Take(3);
         
-        ViewBag.events = (await _eventService.GetAllAsync(u => u.ShowOnHomepage == true)).OrderBy(u => u.Date).Take(3);
+        ViewBag.events = (await _eventService.GetAllAsync(u => (u.ShowOnHomepage == true) && (u.Visibility == true))).OrderBy(u => u.Date).Take(3);
+        
+        ViewBag.homeContent = await _homePageContentService.Get();
+        ViewBag.homeDescriptionContent = await _homeContentDescriptionService.GetLastAsync();
         return View();
     }
 

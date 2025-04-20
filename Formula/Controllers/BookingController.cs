@@ -1,4 +1,5 @@
 using AutoMapper;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using IoC.Services.Interface;
 using Infrastructure.DTO;
@@ -13,28 +14,49 @@ namespace Formula.Controllers
         private readonly ICarService _carService;
         private readonly IRaceService _raceService;
         private readonly IBookingService _bookingService;
+        private readonly IRaceCarService _raceCarService;
         private readonly IMapper _mapper;
 
-        public BookingController(ICarService carService, IRaceService raceService, IBookingService bookingService, IMapper mapper)
+        public BookingController(ICarService carService, IRaceService raceService, IBookingService bookingService, IMapper mapper, IRaceCarService raceCarService)
         {
             _carService = carService;
             _raceService = raceService;
             _bookingService = bookingService;
             _mapper = mapper;
+            _raceCarService = raceCarService;
         }
 
+        
+        // GET: Test Action For Razor View 
+        public IActionResult Test()
+        {
+            return View();
+        }
         // GET: Display the Booking Request Form
         [HttpGet]
-        public IActionResult BookingRequest()
+        public async Task<IActionResult> BookingRequest(int? carId, int? raceId)
         {
+            var racesWithCars = await _raceCarService.GetRacesWithCarsAsync();
+
             BookingFormViewModel model = new()
             {
-                Cars = _carService.GetSelectListAsync().GetAwaiter().GetResult(),
-                Races = _raceService.GetSelectListAsync().GetAwaiter().GetResult()
+                Booking = new Booking
+                {
+                    CarId = carId,
+                    RaceId = raceId
+                },
+                Races = racesWithCars.Select(r => new SelectListItem
+                {
+                    Value = r.Id.ToString(),
+                    Text = r.Name
+                }).ToList(),
+
+                Cars = new List<SelectListItem>() // Initially empty
             };
-      
+
             return View(model);
         }
+
 
         // POST: Handle Booking Request Form submission
         [HttpPost]
@@ -44,11 +66,12 @@ namespace Formula.Controllers
             {
                 var modelDTO = _mapper.Map<BookingDTO>(model.Booking);
                 await _bookingService.AddAsync(modelDTO);
+                
                 return RedirectToAction("Confirmation");
             }
 
-            model.Races = _carService.GetSelectListAsync().GetAwaiter().GetResult();
-            model.Cars = _raceService.GetSelectListAsync().GetAwaiter().GetResult();
+            model.Cars = _carService.GetSelectListAsync().GetAwaiter().GetResult();
+            model.Races = (_raceService.GetSelectListAsync(u => (u.Visibility == true) && (u.Occupancy > u.NumberOfBookedSeats ))).GetAwaiter().GetResult();
             
             return View("BookingRequest");
         }
@@ -58,6 +81,20 @@ namespace Formula.Controllers
         {
             return View();
         }
+        
+        [HttpGet]
+        public async Task<IActionResult> GetCarsByRace(int raceId)
+        {
+            var cars = await _raceCarService.GetCarsByRaceIdAsync(raceId); // You will implement this
+            var carList = cars.Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Model
+            }).ToList();
+
+            return Json(carList);
+        }
+
     }
 }
 

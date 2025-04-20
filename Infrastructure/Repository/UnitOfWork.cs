@@ -13,6 +13,13 @@ public class UnitOfWork: IUnitOfWork
     public IBannerRepository Banners { get; }
     public IHomePageContentRepository HomePageContents { get; }
 
+    public IBrandRepository Brands { get; }
+    
+    public ILocationRepository Locations { get; }
+    public ICarImageRepository CarImages { get; }
+    public IRaceCarRepository RaceCars { get; }
+    public IHomeContentDescriptionRepository HomeContentDescriptions { get; }
+
     public UnitOfWork(ApplicationDbContext context)
     {
         _context = context;
@@ -22,6 +29,12 @@ public class UnitOfWork: IUnitOfWork
         Bookings = new BookingRepository(_context);
         Banners = new BannerRepository(_context);
         HomePageContents = new HomePageContentRepository(_context);
+        Brands = new BrandRepository(_context);
+        Locations = new LocationRepository(_context);
+        CarImages = new CarImageRepository(_context);
+        RaceCars = new RaceCarRepository(_context);
+        HomeContentDescriptions = new HomeContentDescriptionRepository(_context);
+        
     }
 
     public async Task<int> CompleteAsync() => await _context.SaveChangesAsync();

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<LocationDTO>
+
+@{
+    ViewData["Title"] = "Location List";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a href="@Url.Action("Create", "Location")" class="btn btn-primary">Create New Location</a>
+</p>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <td></td>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var location in Model)
+    {
+        <tr>
+            <td>@location.Name</td>
+            <td><a href="@Url.Action("Edit", "Location", new { id = location.Id })" class="btn btn-warning">Edit</a></td>
+            <td> <a href="@Url.Action("Delete", "Location", new { id = location.Id })" class="btn btn-danger">Delete</a></td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -8,11 +8,15 @@
 
 <form asp-action="Edit" enctype="multipart/form-data">
     <input type="hidden" asp-for="Id" />
+
     <div class="form-group">
-        <label asp-for="BrandName"></label>
-        <input asp-for="BrandName" class="form-control" />
-        <span asp-validation-for="BrandName" class="text-danger"></span>
+        <label asp-for="BrandId"></label>
+        <select asp-for="BrandId" asp-items="ViewBag.Brands" class="form-control">
+            <option value="" >-- Select Brand --</option>
+        </select>
+        <span asp-validation-for="BrandId" class="text-danger"></span>
     </div>
+    
     <div class="form-group">
         <label asp-for="Model"></label>
         <input asp-for="Model" class="form-control" />
@@ -33,6 +37,13 @@
         <input asp-for="Cost" class="form-control" />
         <span asp-validation-for="Cost" class="text-danger"></span>
     </div>
+
+    <div class="form-group form-check">
+        <label asp-for="Visibility" class="form-check-label"></label>
+        <input asp-for="Visibility" type="checkbox" class="form-check-input" />
+        <span asp-validation-for="Visibility" class="text-danger"></span>
+    </div>
+    
     <div class="form-group">
         @if (!string.IsNullOrEmpty(Model.ImageUrl))
         {<label>Current Image</label><br />
@@ -43,13 +54,8 @@
             <img src="~/media/altcar.jpeg" alt="Car Image" width="100" />
         }
     </div>
-    <div class="form-group">
-        <label asp-for="ImageFile" class="control-label"></label>
-        <input asp-for="ImageFile" type="file" class="form-control" />
-        <span asp-validation-for="ImageFile" class="text-danger"></span>
-    </div>
     <button type="submit" class="btn btn-primary mt-2">Save</button>
-    <a asp-action="Index" class="btn btn-secondary mt-2">Cancel</a>
+    <a asp-action="Index" class="btn btn-danger mt-2">Cancel</a>
 </form>
 
 @section Scripts {

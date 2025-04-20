@@ -1,5 +1,7 @@
-﻿@{
+﻿@using Infrastructure.DTO
+@{
     Layout = "_mainLayout";
+    var homeContent = ViewBag.homeContent as HomePageContentDTO;
 }
 
 <!-- Banner -->
@@ -7,16 +9,16 @@
     <div class="inner">
         <h1>Formula  Racing</h1>
         <p>Unleash the Speed. Ignite the Passion.<br>
-            Experience the thrill of Formula racing like never before — where precision meets power, and legends are born on the track.</p>
+            @ViewBag.homeContent.BannerText </p>
     </div>
-    <video autoplay loop muted playsinline src="industrious/images/videoplayback.mp4"></video>
+    <video autoplay loop muted playsinline src="@($"https://localhost:7027/admin-content/{@ViewBag.homeContent.VideoPath}")"></video>
 </section>
 <!-- Highlights -->
 <section class="wrapper">
     <div class="inner">
         <header class="special">
             <h2>Discover Our Thrilling Fleet</h2>
-            <p>At Formula Egypt, we offer a range of high-performance racing cars, built for speed, precision, and power. From the raw energy of single-seaters to the advanced handling of Formula-style cars, our fleet ensures an unmatched racing experience. With cutting-edge technology and engineering, our cars are ready to dominate the track.</p>
+            <p>@ViewBag.homeDescriptionContent.RacesDescription</p>
         </header>
        
         <partial name="_racesCard" />
@@ -31,13 +33,12 @@
 <!-- CTA -->
 <section id="cta" class="wrapper">
     <div class="inner">
-        <p>Step into the electrifying world of Formula racing, 
-            where cutting-edge engineering meets raw adrenaline. 
-            From heart-pounding turns to lightning-fast straights, 
-            our global championship events unite the best drivers on Earth in a breathtaking 
-            battle for glory. Every race is a story of speed, strategy, and skill — played 
-            out before roaring crowds and under the eyes of millions. Join us as we chase
-            greatness, lap after lap, in the ultimate celebration of motorsport excellence.</p>
+        <p>Step into the electrifying world of Formula racing,
+            where cutting-edge engineering meets raw adrenaline.
+            From heart-pounding turns to lightning-fast straights,
+            our global championship events unite the best drivers on Earth in a breathtaking battle for glory. 
+            Every race is a story of speed, strategy, and skill — played out before roaring crowds and under the eyes of millions. 
+            Join us as we chase greatness, lap after lap, in the ultimate celebration of motorsport excellence.</p>
     </div>
 </section>
 <!-- Testimonials -->
@@ -45,7 +46,7 @@
     <div class="inner">
         <header class="special">
             <h2>Feel the Roar of the Track</h2>
-            <p>Experience the thrill of Formula racing like never before — where precision meets power, and legends are born on the track.</p>
+            <p>@ViewBag.homeDescriptionContent.TracksDescription</p>
         </header>
         <div class="testimonials">
          

@@ -14,7 +14,7 @@ public class EventController : Controller
     // GET
     public IActionResult Index()
     {
-        ViewBag.events = _eventService.GetAllAsync().GetAwaiter().GetResult();
+        ViewBag.events = _eventService.GetAllAsync(u => u.Visibility == true).GetAwaiter().GetResult();
         return View();
     }
 }

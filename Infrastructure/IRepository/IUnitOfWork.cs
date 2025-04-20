@@ -8,5 +8,10 @@ public interface IUnitOfWork
     IBookingRepository Bookings { get; }
     IBannerRepository Banners { get; }
     IHomePageContentRepository HomePageContents { get; }
+    IBrandRepository Brands { get; }
+    ILocationRepository Locations { get; }
+    ICarImageRepository CarImages { get; }
+    IRaceCarRepository RaceCars { get; }
+    IHomeContentDescriptionRepository HomeContentDescriptions { get; }
     Task<int> CompleteAsync();
 }

@@ -11,10 +11,12 @@ namespace Adminstration.Controllers;
 public class BookingController : Controller
 {
     private readonly IBookingService _bookingService;
+    private readonly IRaceService _raceService;
 
-    public BookingController(IBookingService bookingService)
+    public BookingController(IBookingService bookingService, IRaceService raceService)
     {
         _bookingService = bookingService;
+        _raceService = raceService;
     }
 
     public async Task<IActionResult> Index()
@@ -76,6 +78,14 @@ public class BookingController : Controller
     [HttpPost, ActionName("DeleteConfirmed")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
+        var bookingDto = await _bookingService.GetByIdAsync(id);
+        var raceDto = await _raceService.GetByIdAsync(bookingDto.RaceId);
+        if (raceDto.NumberOfBookedSeats > 0)
+        {
+            raceDto.NumberOfBookedSeats--;
+        }
+        
+        await _raceService.UpdateAsync(raceDto);
         await _bookingService.DeleteAsync(id);
         return RedirectToAction(nameof(Index));
     }
@@ -89,9 +99,15 @@ public class BookingController : Controller
             return NotFound();
         }
 
+        var raceDto = _raceService.GetByIdAsync(booking.RaceId).GetAwaiter().GetResult();
+        if (raceDto != null)
+        {
+            raceDto.NumberOfBookedSeats++;
+            await _raceService.UpdateAsync(raceDto);
+        }
+
         // Confirm the booking
         booking.IsConfirmed = true;
-
         await _bookingService.UpdateAsync(booking);  // Update confirmation flag
 
         return RedirectToAction(nameof(Index));  // Redirect to the Index page after confirmation

@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Adminstration.Models;
+using Infrastructure.DTO;
 using IoC.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
 
@@ -11,18 +12,30 @@ namespace Adminstration.Controllers;
 public class HomeController : Controller
 {
     
-
-    public HomeController()
+    private readonly IHomePageContentService _homePageContentService;
+    public HomeController(IHomePageContentService homePageContentService)
     {
-       
-        
+        _homePageContentService = homePageContentService;
     }
 
     public IActionResult Index()
     {
         return View();
     }
+    
+    public async Task<IActionResult> Edit()
+    {
+        var dto = await _homePageContentService.Get();
+        return View(dto);
+    }
 
+    [HttpPost]
+    public async Task<IActionResult> Edit(HomePageContentDTO dto)
+    {
+        if (!ModelState.IsValid) return View(dto);
+        await _homePageContentService.UpdateAsync(dto);
+        return RedirectToAction(nameof(Index));
+    }
 
     public IActionResult Privacy()
     {

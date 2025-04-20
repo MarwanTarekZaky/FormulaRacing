@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using AutoMapper;
 using Domain.Models;
 using Infrastructure.DTO;
@@ -51,9 +52,9 @@ public class BookingService : IBookingService
         return booking == null ? null : _mapper.Map<BookingDTO>(booking);
     }
 
-    public async Task<IEnumerable<BookingDTO>> GetAllAsync()
+    public async Task<IEnumerable<BookingDTO>> GetAllAsync(Expression<Func<Booking,bool>>? filter = null)
     {
-        var bookings = await _unitOfWork.Bookings.GetAllAsync();
+        var bookings = await _unitOfWork.Bookings.GetAllAsync(filter);
         var bookingDtos = _mapper.Map<IEnumerable<BookingDTO>>(bookings);
 
         // Populate CarName and RaceName for each booking
@@ -63,7 +64,7 @@ public class BookingService : IBookingService
             var race = await _unitOfWork.Races.GetByIdAsync(bookingDto.RaceId);
             if (car != null)
             {
-                bookingDto.CarName = car.BrandName;
+                bookingDto.CarName = car.Model; //Caution do not forget to replace it with   car.Brand.Name
                 bookingDto.Car = car;
                 // Replace with the actual property name for car name
             } 

@@ -16,8 +16,8 @@
         <th>Color</th>
         <th>Max Speed</th>
         <th>Cost</th>
-        <th>Image</th>
-        <th></th>
+        <th>Visibility</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -29,20 +29,15 @@
             <td>@car.Color</td>
             <td>@car.MaxSpeed</td>
             <td>@car.Cost</td>
-            <td>
-                @if (!string.IsNullOrEmpty(car.ImageUrl))
-                {
-                    <img src="@car.ImageUrl" alt="Car Image" width="100" />
-                }else
-                {
-                    <img src="~/media/altcar.jpeg" alt="Car Image" width="100" />
-                }
-            </td>
+            <td>@car.Visibility</td>
             <td>
                 <a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-sm btn-warning">Edit</a>
                 <a asp-action="Delete" asp-route-id="@car.Id" class="btn btn-sm btn-danger">Delete</a>
+                <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-sm btn-info">Details</a>
+                <a asp-controller="CarImage" asp-action="index" asp-route-carId="@car.Id" class="btn btn-sm btn-secondary">Images</a>
             </td>
         </tr>
+        <tr> </tr>
     }
     </tbody>
 </table>
